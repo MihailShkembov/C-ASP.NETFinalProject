@@ -4,14 +4,16 @@ using CarRentingSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarRentingSystem.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210727154413_CarAndTripTables")]
+    partial class CarAndTripTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -221,9 +223,8 @@ namespace CarRentingSystem.Data.Migrations
 
             modelBuilder.Entity("SharedTripSystem.Data.Models.Car", b =>
                 {
-                    b.Property<string>("PlateNumber")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -236,7 +237,7 @@ namespace CarRentingSystem.Data.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.HasKey("PlateNumber");
+                    b.HasKey("Id");
 
                     b.ToTable("Cars");
                 });
@@ -247,7 +248,7 @@ namespace CarRentingSystem.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CarId")
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("DepartureDate")
                         .HasColumnType("datetime2");
