@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using SharedTripSystem.Data;
 
-namespace CarRentingSystem.Data.Migrations
+namespace SharedTripSystem.Data.Migrations
 {
     public partial class CarPrimaryKey : Migration
     {

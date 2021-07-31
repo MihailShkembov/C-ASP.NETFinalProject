@@ -1,8 +1,9 @@
-namespace CarRentingSystem
-{
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Hosting;
+using SharedTripSystem;
 
+namespace CarRentingSystem
+{
     public class Program
     {
         public static void Main(string[] args) 

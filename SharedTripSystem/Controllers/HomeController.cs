@@ -1,13 +1,10 @@
-﻿using CarRentingSystem.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
+using SharedTripSystem.Models;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace CarRentingSystem.Controllers
+
+namespace SharedTripSystem.Controllers
 {
     public class HomeController : Controller
     {

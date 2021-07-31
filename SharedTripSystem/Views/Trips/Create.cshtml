@@ -1,0 +1,52 @@
+﻿@model CreateTripFormModel
+@{
+    ViewData["Title"] = "Create Trip";
+}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-2 col-sm-12">
+                <form method="post">
+                    <div class="form-group">
+                        <label asp-for="StartPoint"></label>
+                        <input asp-for="StartPoint" class="form-control" placeholder="Sofia,Plovdiv,Burgas...">
+                        <span asp-validation-for="StartPoint" class="small text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="EndPoint"></label>
+                        <input asp-for="EndPoint" class="form-control" placeholder="Varna,Veliko Tarnovo,Sozopol...">
+                        <span asp-validation-for="EndPoint" class="small text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FreeSeats"></label>
+                        <select asp-for="FreeSeats" multiple class="form-control" id="exampleFormControlSelect2">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DestinationImageUrl"></label>
+                        <input asp-for="DestinationImageUrl" class="form-control" placeholder="Picture of your destination">
+                        <span asp-validation-for="DestinationImageUrl" class="small text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DepartureDate"></label>
+                        <input asp-for="DepartureDate" class="form-control">
+                        <span asp-validation-for="DepartureDate" class="small text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description"></label>
+                        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="Description" class="small text-danger"></span>
+                    </div>
+                    <input class="btn btn-primary" type="submit" value="Save" />
+                </form>
+            </div>
+        </div>
+    </div>
+

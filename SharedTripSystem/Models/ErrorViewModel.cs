@@ -1,6 +1,6 @@
 using System;
 
-namespace CarRentingSystem.Models
+namespace SharedTripSystem.Models
 {
     public class ErrorViewModel
     {

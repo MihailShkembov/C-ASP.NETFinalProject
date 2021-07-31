@@ -1,10 +1,10 @@
-﻿
-namespace SharedTripSystem.Infrastructure
-{
-using CarRentingSystem.Data;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using SharedTripSystem.Data;
+
+namespace SharedTripSystem.Infrastructure
+{
     public static class ApplicationBuilderExtension
     {
         public static IApplicationBuilder PrepareDatabase

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 
-namespace CarRentingSystem.Data.Migrations
+namespace SharedTripSystem.Data.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

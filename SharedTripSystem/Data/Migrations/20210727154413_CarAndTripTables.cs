@@ -1,7 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace CarRentingSystem.Data.Migrations
+using SharedTripSystem.Data;
+
+namespace SharedTripSystem.Data.Migrations
 {
     public partial class CarAndTripTables : Migration
     {

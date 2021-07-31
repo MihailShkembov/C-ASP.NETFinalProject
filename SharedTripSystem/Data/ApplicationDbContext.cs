@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SharedTripSystem.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace CarRentingSystem.Data
+namespace SharedTripSystem.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {

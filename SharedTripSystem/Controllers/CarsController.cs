@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SharedTripSystem.Controllers
 {
-    public class CarController
+    public class CarsController
     {
     }
 }
