@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using SharedTripSystem.Data;
 using SharedTripSystem.Models.Trips;
 using SharedTripSystem.Data.Models;
+using System.Linq;
+using System;
 
 namespace SharedTripSystem.Controllers
 {
@@ -33,6 +35,23 @@ namespace SharedTripSystem.Controllers
             this.dbContext.Trips.Add(tripToAdd);
             this.dbContext.SaveChanges();
             return this.RedirectToAction("Index", "Home");
+        }
+        public IActionResult All()
+        {
+            var trips = this.dbContext.Trips
+                .Where(x => x.DepartureDate >= DateTime.UtcNow)
+                 .OrderBy(x => x.DepartureDate)
+                .Select(x => new AllTripsViewModel
+                {
+                    Id = x.Id,
+                    StartPoint = x.StartPoint,
+                    EndPoint = x.EndPoint,
+                    DepartureDate = x.DepartureDate,
+                    DestinationImageUrl = x.DestinationImageUrl,
+                    FreeSeats = x.FreeSeats
+                }).ToList();
+               
+            return this.View(trips);
         }
 
     }
