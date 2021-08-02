@@ -36,11 +36,13 @@ namespace SharedTripSystem.Controllers
             this.dbContext.SaveChanges();
             return this.RedirectToAction("Index", "Home");
         }
-        public IActionResult All()
-        {
-            var trips = this.dbContext.Trips
-                .Where(x => x.DepartureDate >= DateTime.UtcNow)
-                 .OrderBy(x => x.DepartureDate)
+        public IActionResult All([FromQuery]AllTripsQueryModel query)
+        { 
+            var trips = this.dbContext.Trips.AsQueryable()
+                .Where(x => DateTime.Compare(x.DepartureDate, DateTime.UtcNow) > 0)
+                .OrderBy(x => x.DepartureDate)
+                .Skip((query.CurrentPage-1)*AllTripsQueryModel.TripsPerPages)
+                .Take(AllTripsQueryModel.TripsPerPages)
                 .Select(x => new AllTripsViewModel
                 {
                     Id = x.Id,
@@ -48,10 +50,12 @@ namespace SharedTripSystem.Controllers
                     EndPoint = x.EndPoint,
                     DepartureDate = x.DepartureDate,
                     DestinationImageUrl = x.DestinationImageUrl,
+                    CarId=x.CarId,
                     FreeSeats = x.FreeSeats
                 }).ToList();
-               
-            return this.View(trips);
+            query.Trips = trips;
+            query.TotalTrips = this.dbContext.Trips.Where(x => DateTime.Compare(x.DepartureDate, DateTime.UtcNow) > 0).Count();
+            return this.View(query);
         }
 
     }

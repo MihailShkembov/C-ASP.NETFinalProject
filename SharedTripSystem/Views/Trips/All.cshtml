@@ -1,15 +1,60 @@
-﻿@model IEnumerable<AllTripsViewModel>
-
-<div class="row">
-    @foreach (var trip in Model)
-    {
-        <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src=@trip.DestinationImageUrl alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">@trip.StartPoint -> @trip.EndPoint</h5>
-                <p class="card-text">Free Seats: @trip.FreeSeats<br />Departure Date: @trip.DepartureDate</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+﻿@model AllTripsQueryModel
+<form method="get">
+    <div class="row">
+        @foreach (var trip in Model.Trips)
+        {
+            <div class="card" style="width: 15rem">
+                <img class="card-img-top" src=@trip.DestinationImageUrl alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">@trip.StartPoint -> @trip.EndPoint</h5>
+                    <p class="card-text">Free Seats: @trip.FreeSeats<br />Departure Date: @trip.DepartureDate</p>
+                    @if (trip.CarId == null)
+                    {
+                        <a asp-controller="Cars" asp-action="Add" class="btn btn-primary">Add Car</a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Cars" asp-action="Details" asp-route-id="@trip.CarId" class="btn btn-primary">Details</a>
+                    }
+                </div>
             </div>
-        </div>
+        }
+    </div>
+</form>
+@{
+    var previousPage = Model.CurrentPage - 1;
+    if (previousPage < 1)
+    {
+        previousPage = 1;
     }
+
+    var maxPage = Math.Ceiling((double)Model.TotalTrips/ AllTripsQueryModel.TripsPerPages);
+}
+
+<div class="row mb-5">
+    <div class="col-md-6">
+        <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+           asp-controller="Trips"
+           asp-action="All"
+           asp-route-CurrentPage="@previousPage"
+          ><<</a>
+    </div>
+
+    @{
+        var shouldButtonBeDisabled = Model.CurrentPage == maxPage ||
+                                     !Model.Trips.Any();
+    }
+
+    <div class="col-md-6">
+        <a class="btn btn-primary float-sm-right @(shouldButtonBeDisabled ? "disabled" : string.Empty)" style="margin-top: 10px"
+           asp-controller="Trips"
+           asp-action="All"
+           asp-route-CurrentPage="@(Model.CurrentPage + 1)"
+       >>></a>
+    </div>
 </div>
+
+@if (!Model.Trips.Any())
+{
+    <h2 class="text-center">No cars found by the given criteria!</h2>
+}
