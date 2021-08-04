@@ -1,10 +1,27 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using SharedTripSystem.Services.Drivers
+@using System.Security.Claims;
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
+@inject IDriverService Drivers
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
+  var  userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var isUserDriver = Drivers.IsDriver(userId);
+    @if (isUserDriver)
+    {
+         <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Car" asp-action="Add">Add Car</a>
+            </li>
+    }
+    else
+	{
+<li class="nav-item">
+    <a class="nav-link text-dark" asp-area="" asp-controller="Drivers" asp-action="Create">Become Driver</a>
+</li>
+	}
     <li class="nav-item">
         <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
     </li>

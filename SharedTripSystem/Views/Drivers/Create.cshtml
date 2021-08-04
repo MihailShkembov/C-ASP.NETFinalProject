@@ -1,0 +1,25 @@
+﻿@model SharedTripSystem.Models.Drivers.BecomeDriverFormModel
+@{
+    ViewData["Title"] = "Become Driver";
+
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-2 col-sm-12">
+            <h2 class="heading-margin text-center">Become Driver</h2>
+            <form method="post">
+                <div class="form-group">
+                    <label asp-for="FullName"></label>
+                    <input asp-for="FullName" class="form-control" >
+                    <span asp-validation-for="FullName" class="small text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DriversLicense"></label>
+                    <input asp-for="DriversLicense" class="form-control" placeholder="Example : 10003431">
+                    <span asp-validation-for="DriversLicense" class="small text-danger"></span>
+                </div>
+                <input class="btn btn-primary" type="submit" value="Save" />
+            </form>
+        </div>
+    </div>
+</div>

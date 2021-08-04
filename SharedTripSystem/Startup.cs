@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SharedTripSystem.Data;
 using SharedTripSystem.Infrastructure;
+using SharedTripSystem.Services.Drivers;
 
 namespace SharedTripSystem
 {
@@ -37,6 +38,7 @@ namespace SharedTripSystem
 
             services
                 .AddControllersWithViews();
+            services.AddTransient<IDriverService, DriverSerice>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

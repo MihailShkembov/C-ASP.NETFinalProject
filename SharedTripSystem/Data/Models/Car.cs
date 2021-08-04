@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using static SharedTripSystem.Data.DataConstants;
+using static SharedTripSystem.Data.DataConstants.Car;
+using static SharedTripSystem.Data.DataConstants.Default;
 
 namespace SharedTripSystem.Data.Models
 {
     public class Car
     {
-        public Car()
-        {
-            this.Trips = new HashSet<Trip>();
-        }
         public string Id { get; set; } = Guid.NewGuid().ToString();
         [Required]
         [MaxLength(PlateNumberLength)]
@@ -21,7 +17,10 @@ namespace SharedTripSystem.Data.Models
         [MaxLength(DefaultMaxLength)]
         [Required]
         public string Type { get; set; }
-        public ICollection<Trip> Trips { get; set; }
+        public string DriverId { get; init; }
+
+        public Driver Driver { get; init; }
+        public ICollection<Trip> Trips { get; set; } = new List<Trip>();
 
     }
 }

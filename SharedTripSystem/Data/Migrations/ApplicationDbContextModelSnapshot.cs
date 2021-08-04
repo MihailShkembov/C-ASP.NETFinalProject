@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SharedTripSystem.Data;
 
-namespace SharedTripSystem.Data.Migrations
+namespace SharedTripSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -82,6 +82,10 @@ namespace SharedTripSystem.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -133,6 +137,8 @@ namespace SharedTripSystem.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -224,6 +230,9 @@ namespace SharedTripSystem.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("DriverId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("KilometersTravlled")
                         .HasColumnType("int");
 
@@ -239,7 +248,34 @@ namespace SharedTripSystem.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DriverId");
+
                     b.ToTable("Cars");
+                });
+
+            modelBuilder.Entity("SharedTripSystem.Data.Models.Driver", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("DriversLicense")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Drivers");
                 });
 
             modelBuilder.Entity("SharedTripSystem.Data.Models.Trip", b =>
@@ -278,6 +314,17 @@ namespace SharedTripSystem.Data.Migrations
                     b.HasIndex("CarId");
 
                     b.ToTable("Trips");
+                });
+
+            modelBuilder.Entity("SharedTripSystem.Data.Models.User", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("FullName")
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.HasDiscriminator().HasValue("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -331,13 +378,43 @@ namespace SharedTripSystem.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("SharedTripSystem.Data.Models.Car", b =>
+                {
+                    b.HasOne("SharedTripSystem.Data.Models.Driver", "Driver")
+                        .WithMany("Cars")
+                        .HasForeignKey("DriverId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Driver");
+                });
+
+            modelBuilder.Entity("SharedTripSystem.Data.Models.Driver", b =>
+                {
+                    b.HasOne("SharedTripSystem.Data.Models.User", null)
+                        .WithOne()
+                        .HasForeignKey("SharedTripSystem.Data.Models.Driver", "UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("SharedTripSystem.Data.Models.Trip", b =>
                 {
                     b.HasOne("SharedTripSystem.Data.Models.Car", "Car")
-                        .WithMany()
-                        .HasForeignKey("CarId");
+                        .WithMany("Trips")
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Car");
+                });
+
+            modelBuilder.Entity("SharedTripSystem.Data.Models.Car", b =>
+                {
+                    b.Navigation("Trips");
+                });
+
+            modelBuilder.Entity("SharedTripSystem.Data.Models.Driver", b =>
+                {
+                    b.Navigation("Cars");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
+
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using static SharedTripSystem.Data.DataConstants;
+using static SharedTripSystem.Data.DataConstants.Default;
+using static SharedTripSystem.Data.DataConstants.Trip;
 
 namespace SharedTripSystem.Data.Models
 {
