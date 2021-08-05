@@ -10,6 +10,9 @@ namespace SharedTripSystem.Data.Models
     {
         public string Id { get; set; } = Guid.NewGuid().ToString();
         [Required]
+       [MaxLength(DefaultMaxLength)]
+        public string Model { get; set; }
+        [Required]
         [MaxLength(PlateNumberLength)]
         public string PlateNumber { get; set; } 
         [Required]
@@ -17,6 +20,8 @@ namespace SharedTripSystem.Data.Models
         [MaxLength(DefaultMaxLength)]
         [Required]
         public string Type { get; set; }
+        [Required]
+        public string CarImageUrl { get; set; }
         public string DriverId { get; init; }
 
         public Driver Driver { get; init; }

@@ -7,6 +7,11 @@
         <div class="col-md-6 offset-md-2 col-sm-12">
             <form method="post">
                 <div class="form-group">
+                    <label asp-for="Model"></label>
+                    <input asp-for="Model" class="form-control" placeholder="Example : Tesla Model X">
+                    <span asp-validation-for="Model" class="small text-danger"></span>
+                </div>
+                <div class="form-group">
                     <label asp-for="PlateNumber"></label>
                     <input asp-for="PlateNumber" class="form-control" placeholder="Example : CA0000PA">
                     <span asp-validation-for="PlateNumber" class="small text-danger"></span>
@@ -20,6 +25,11 @@
                     <label asp-for="Type"></label>
                     <input asp-for="Type" class="form-control" placeholder="Example : SUV,Coupe...">
                     <span asp-validation-for="Type" class="small text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CarImageUrl"></label>
+                    <input asp-for="CarImageUrl" class="form-control">
+                    <span asp-validation-for="CarImageUrl" class="small text-danger"></span>
                 </div>
                 <input class="btn btn-primary" type="submit" value="Save" />
             </form>
