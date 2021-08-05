@@ -2,7 +2,12 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="card" style="width: 50rem;">
+    <div class="card-body"
+        <h5 style="text-decoration-style:solid;" class ="card-title">Welcome to SharedTrip!</h5>
+        <h6 class="card-subtitle mb-2 text-muted"style="margin-top:1rem">You can either join or create a trip.</h6>
+        <p class="card-text">If you like to travel, SharedTrip is the place for you. You can join traveling with other people, invite people to join your trip or read a recommendation about a place you want to go!</p>
+        <a class="card-link" asp-controller="Trips" asp-action="Create">Create Trip</a>
+        <a class="card-link" asp-controller="Trips" asp-action="All">Join Trip</a>
+    </div>
 </div>

@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.31205.134
+VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedTripSystem", "CarRentingSystem\SharedTripSystem.csproj", "{80B4175B-3E03-4F23-9635-E722D42C1CEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedTripSystem", "SharedTripSystem\SharedTripSystem.csproj", "{2078C507-2731-4577-B52B-C3534E92CD3D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{80B4175B-3E03-4F23-9635-E722D42C1CEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{80B4175B-3E03-4F23-9635-E722D42C1CEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{80B4175B-3E03-4F23-9635-E722D42C1CEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{80B4175B-3E03-4F23-9635-E722D42C1CEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2078C507-2731-4577-B52B-C3534E92CD3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2078C507-2731-4577-B52B-C3534E92CD3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2078C507-2731-4577-B52B-C3534E92CD3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2078C507-2731-4577-B52B-C3534E92CD3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {812B0925-0165-486E-BCE5-B2AFC908476B}
+		SolutionGuid = {9FDD05F1-5F13-457F-BE51-1CE597CC6C36}
 	EndGlobalSection
 EndGlobal
