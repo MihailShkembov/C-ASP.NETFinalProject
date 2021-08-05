@@ -16,6 +16,6 @@ namespace SharedTripSystem.Data.Models
         [Required]
         public string UserId { get; set; }
 
-        public IEnumerable<Car> Cars { get; set; } = new List<Car>();
+        public List<Car> Cars { get; set; } = new List<Car>();
     }
 }

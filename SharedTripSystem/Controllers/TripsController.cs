@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using SharedTripSystem.Data;
 using SharedTripSystem.Models.Trips;
 using SharedTripSystem.Data.Models;

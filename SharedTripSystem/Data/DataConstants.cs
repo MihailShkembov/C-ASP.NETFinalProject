@@ -19,6 +19,10 @@ namespace SharedTripSystem.Data
         {
             public const int PlateNumberLength = 8;
             public const string InvalidPlateNumberMessage = "Plate number must be exactly 8 symbols";
+            public const int KilometersTravelledMinValue = 0;
+            public const int KilometersTravelledMaxValue = 2000000;
+            public const string InvalidKilometersMessage = "Please enter valid kilometers";
+            public const string InvalidTypeMessage = "Type should be between 3 and 20 symbols";
         }
       public class Trip
         {
