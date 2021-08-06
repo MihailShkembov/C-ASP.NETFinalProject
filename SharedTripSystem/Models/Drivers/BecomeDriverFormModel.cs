@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using static SharedTripSystem.Data.DataConstants.Default;
+
 namespace SharedTripSystem.Models.Drivers
 {
     public class BecomeDriverFormModel

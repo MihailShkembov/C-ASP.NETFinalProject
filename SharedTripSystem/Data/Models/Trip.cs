@@ -1,5 +1,4 @@
 ﻿using System;
-
 using System.ComponentModel.DataAnnotations;
 using static SharedTripSystem.Data.DataConstants.Default;
 using static SharedTripSystem.Data.DataConstants.Trip;

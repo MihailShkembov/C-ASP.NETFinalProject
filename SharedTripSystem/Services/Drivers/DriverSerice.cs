@@ -1,5 +1,5 @@
-﻿using SharedTripSystem.Data;
-using System.Linq;
+﻿using System.Linq;
+using SharedTripSystem.Data;
 
 namespace SharedTripSystem.Services.Drivers
 {

@@ -14,7 +14,7 @@ namespace SharedTripSystem.Data.Models
         [MaxLength(DefaultMaxLength)]
         public string Location { get; set; }
         [Required]
-        public string Descriptop { get; set; }
+        public string Descripton { get; set; }
 
     }
 }

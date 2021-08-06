@@ -4,6 +4,7 @@ using SharedTripSystem.Models.Trips;
 using SharedTripSystem.Data.Models;
 using System.Linq;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SharedTripSystem.Controllers
 {
@@ -14,7 +15,13 @@ namespace SharedTripSystem.Controllers
         {
             this.dbContext = dbContext;
         }
-        public IActionResult Create() => this.View();
+        [Authorize]
+        public IActionResult Create()
+        {
+            
+            return this.View();
+        }
+
         [HttpPost]
         public IActionResult Create(CreateTripFormModel trip)
         {
@@ -22,7 +29,7 @@ namespace SharedTripSystem.Controllers
             {
                 return this.View(trip);
             }
-         var tripToAdd = new Trip
+            var tripToAdd = new Trip
             {
                 StartPoint = trip.StartPoint,
                 EndPoint = trip.EndPoint,
@@ -35,6 +42,7 @@ namespace SharedTripSystem.Controllers
             this.dbContext.SaveChanges();
             return this.RedirectToAction("Index", "Home");
         }
+        [Authorize]
         public IActionResult All([FromQuery]AllTripsQueryModel query)
         { 
             var trips = this.dbContext.Trips.AsQueryable()
