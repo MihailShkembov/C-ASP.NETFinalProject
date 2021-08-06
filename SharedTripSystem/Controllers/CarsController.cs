@@ -78,5 +78,12 @@ namespace SharedTripSystem.Controllers
             this.dbContext.SaveChanges();
             return RedirectToAction("All", "Cars");
         }
+        public IActionResult Delete(string carId)
+        {
+            var carToDelete= this.dbContext.Cars.FirstOrDefault(x => x.Id == carId);
+            this.dbContext.Remove(carToDelete);
+            this.dbContext.SaveChanges();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
