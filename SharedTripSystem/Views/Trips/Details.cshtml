@@ -11,4 +11,5 @@
 <div>
     <p>@Model.TripDescription</p>
 </div>
-<a href="/Trips/Join?userId=@Model.UserId" class="btn btn-primary">Join Trip</a>
+
+<a asp-controller="Trips" asp-action="Details" asp-route-userid="@Model.UserId" asp-route-tripid="@Model." class="btn btn-primary">Details</a>

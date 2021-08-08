@@ -3,6 +3,7 @@
     public class DetailsViewModel
     {
         public string UserId { get; set; }
+        public string TripId { get; set; }
         public string Model { get; set; }
         public string PlateNumber { get; set; }
         public int KilometersTravlled { get; set; }

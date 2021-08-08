@@ -127,9 +127,14 @@ namespace SharedTripSystem.Controllers
                 KilometersTravlled = car.KilometersTravlled,
                 CarImageUrl = car.CarImageUrl,
                 PlateNumber = car.PlateNumber,
+                TripId=trip.Id,
                 TripDescription = trip.Description
             };
             return this.View(details);
         }
+        //public IActionResult Join(string userId, string tripId)
+        //{
+        //    return this.View();
+        //}
     }
 }

@@ -16,6 +16,10 @@
                     {
                         <a asp-controller="Trips" asp-action="AllCars" asp-route-tripid="@trip.Id" class="btn btn-primary">Add Car</a>
                     }
+                    else if (trip.CarId != null && trip.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                    {
+                        <small>Free Seats left for your trip: @trip.FreeSeats</small>
+                    }
                     else
                     {
                         <a asp-controller="Trips" asp-action="Details" asp-route-carid="@trip.CarId" asp-route-tripid="@trip.Id" class="btn btn-primary">Details</a>
