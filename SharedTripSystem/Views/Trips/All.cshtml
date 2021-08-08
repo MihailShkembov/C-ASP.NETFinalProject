@@ -1,4 +1,6 @@
 ﻿@model AllTripsQueryModel
+@using System.Security.Claims
+ 
 <form method="get">
     <div class="row">
         @foreach (var trip in Model.Trips)
@@ -8,9 +10,9 @@
                 <div class="card-body">
                     <h5 class="card-title">@trip.StartPoint -> @trip.EndPoint</h5>
                     <p class="card-text">Free Seats: @trip.FreeSeats<br />Departure Date: @trip.DepartureDate</p>
-                    @if (trip.CarId == null)
+                    @if (trip.CarId == null&&trip.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
                     {
-                        <a asp-controller="Cars" asp-action="Add" class="btn btn-primary">Add Car</a>
+                        <a asp-controller="Trips" asp-action="AllCars" asp-route-tripid="@trip.Id" class="btn btn-primary">Add Car</a>
                     }
                     else
                     {

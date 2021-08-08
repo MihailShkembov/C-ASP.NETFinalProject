@@ -17,5 +17,6 @@ namespace SharedTripSystem.Data.Models
         public string UserId { get; set; }
 
         public List<Car> Cars { get; set; } = new List<Car>();
+
     }
 }
