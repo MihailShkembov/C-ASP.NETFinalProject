@@ -114,5 +114,22 @@ namespace SharedTripSystem.Controllers
             this.dbContext.SaveChanges();
             return RedirectToAction("All", "Trips");
         }
+        public IActionResult Details(string carId, string tripId)
+        {
+            var trip = this.dbContext.Trips.FirstOrDefault(x => x.Id == tripId);
+            var car = this.dbContext.Cars.FirstOrDefault(x => x.Id == carId);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var details = new DetailsViewModel
+            {
+                UserId=userId,
+                Model = car.Model,
+                Type = car.Type,
+                KilometersTravlled = car.KilometersTravlled,
+                CarImageUrl = car.CarImageUrl,
+                PlateNumber = car.PlateNumber,
+                TripDescription = trip.Description
+            };
+            return this.View(details);
+        }
     }
 }

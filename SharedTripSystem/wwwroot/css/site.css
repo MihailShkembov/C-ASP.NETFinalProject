@@ -72,3 +72,14 @@ body {
 .card-body {
     border: none;
 }
+.figcaption{
+    font-family: Arial;
+}
+.img{
+    width:200px;
+    height:200px;
+}
+
+div.p1 {
+    font-size: large;
+}

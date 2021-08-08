@@ -1,17 +1,19 @@
 ﻿@model List<AllCarsLlistingViewModel>
-
-    <form method="get">
-        <div class="row">
-            @foreach (var car in Model)
-            {
-                <div class="card" style="width: 15rem">
-                    <img class="card-img-top" src=@car.CarImageUrl>
-                    <div class="card-body">
-                        <h5 class="card-title">@car.Model (@car.KilometersTravelled km)</h5>
-                        <p class="card-text">Plate Number: @car.PlateNumber<br />Type: @car.Type</p>
-                        <a href="/Cars/Delete?carId=@car.Id" class="btn btn-primary">Delete</a>
-                    </div>
+@{
+    ViewData["Title"] = "My Cars";
+}
+<form method="get">
+    <div class="row">
+        @foreach (var car in Model)
+        {
+            <div class="card" style="width: 15rem">
+                <img class="card-img-top" src=@car.CarImageUrl>
+                <div class="card-body">
+                    <h5 class="card-title">@car.Model (@car.KilometersTravelled km)</h5>
+                    <p class="card-text">Plate Number: @car.PlateNumber<br />Type: @car.Type</p>
+                    <a href="/Cars/Delete?carId=@car.Id" class="btn btn-primary">Delete</a>
                 </div>
-            }
-        </div>
-    </form>
+            </div>
+        }
+    </div>
+</form>

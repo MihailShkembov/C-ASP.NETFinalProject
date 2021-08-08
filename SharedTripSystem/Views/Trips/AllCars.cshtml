@@ -1,5 +1,7 @@
 ﻿@model List<AllCarsTripViewModel>
-
+@{
+    ViewData["Title"] = "Choose Car";
+}
 <form method="get">
     <div class="row">
         @foreach (var car in Model)
