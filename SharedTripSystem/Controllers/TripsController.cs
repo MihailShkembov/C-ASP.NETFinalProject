@@ -55,10 +55,10 @@ namespace SharedTripSystem.Controllers
         }
         [Authorize]
         public IActionResult All([FromQuery]AllTripsQueryModel query)
-        { 
-           
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var trips = this.dbContext.Trips.AsQueryable()
-                .Where(x => DateTime.Compare(x.DepartureDate, DateTime.UtcNow) > 0&& x.FreeSeats>=1)
+                .Where(x => DateTime.Compare(x.DepartureDate, DateTime.UtcNow) > 0&& x.FreeSeats>=1&&!x.PassengersTrips.Any(x=>x.Passenger.UserId==userId))
                 .OrderBy(x => x.DepartureDate)
                 .Skip((query.CurrentPage-1)*AllTripsQueryModel.TripsPerPages)
                 .Take(AllTripsQueryModel.TripsPerPages)
@@ -77,6 +77,7 @@ namespace SharedTripSystem.Controllers
             query.TotalTrips = this.dbContext.Trips.Where(x => DateTime.Compare(x.DepartureDate, DateTime.UtcNow) > 0).Count();
             return this.View(query);
         }
+        [Authorize]
         public IActionResult AllCars(string tripId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -107,6 +108,7 @@ namespace SharedTripSystem.Controllers
 
             return this.View(cars);
         }
+        [Authorize]
         public IActionResult AddCar(string carId,string tripId)
         {
             var trip = this.dbContext.Trips.FirstOrDefault(x => x.Id == tripId);
@@ -115,6 +117,7 @@ namespace SharedTripSystem.Controllers
             this.dbContext.SaveChanges();
             return RedirectToAction("All", "Trips");
         }
+        [Authorize]
         public IActionResult Details(string carId, string tripId)
         {
             var trip = this.dbContext.Trips.FirstOrDefault(x => x.Id == tripId);
@@ -147,13 +150,47 @@ namespace SharedTripSystem.Controllers
             
             return this.View(details);
         }
+        [Authorize]
         public IActionResult Join(string userId, string tripId)
         {
             var trip = this.dbContext.Trips.FirstOrDefault(x => x.Id == tripId);
             var user = this.dbContext.Users.FirstOrDefault(x => x.Id == userId);
             trip.FreeSeats--;
+            var passenger = new Passenger
+            {
+                UserId = user.Id,
+            };
+            var passengerTrip = new PassengerTrip
+            {
+                PassengerId = passenger.Id,
+                TripId = trip.Id
+            };
+            trip.PassengersTrips.Add(passengerTrip);
+            this.dbContext.Passengers.Add(passenger);
             this.dbContext.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
+        public IActionResult MyTrips()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var trips=this.dbContext.Trips
+                .Where(x => x.UserId == userId || x.PassengersTrips.Any(pt => pt.Passenger.UserId == userId))
+                .Select(x=> new MyTripsListingViewModel 
+                {
+                    StartPoint = x.StartPoint,
+                    EndPoint = x.EndPoint,
+                    DepartureDate = x.DepartureDate,
+                    DestinationImageUrl = x.DestinationImageUrl,
+                    CarId = x.CarId,
+                    FreeSeats = x.FreeSeats,
+                })
+                .ToList();
+            if (!trips.Any())
+            {
+                return RedirectToAction("All", "Trips");
+            }
+            return this.View(trips);
+        }
+
     }
 }

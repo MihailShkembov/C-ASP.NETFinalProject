@@ -1,0 +1,19 @@
+﻿@model List<MyTripsListingViewModel>
+
+@{
+    ViewData["Title"] = "My Trips";
+}
+<form method="get">
+    <div class="row">
+        @foreach (var trip in Model)
+        {
+            <div class="card" style="width: 15rem">
+                <img class="card-img-top" src=@trip.DestinationImageUrl alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">@trip.StartPoint -> @trip.EndPoint</h5>
+                    <p class="card-text">Free Seats: @trip.FreeSeats<br />Departure Date: @trip.DepartureDate</p>
+                </div>
+            </div>
+        }
+    </div>
+</form>

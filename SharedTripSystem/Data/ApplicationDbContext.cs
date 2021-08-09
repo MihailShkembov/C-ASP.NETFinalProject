@@ -10,6 +10,7 @@ namespace SharedTripSystem.Data
         public virtual DbSet<Trip> Trips { get; set; }
         public virtual DbSet<Driver> Drivers { get; set; }
         public virtual DbSet<Recommendation> Recommendations { get; set; }
+        public virtual DbSet<Passenger> Passengers { get; set; }
         public virtual DbSet<PassengerTrip> PassengersTrips { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
