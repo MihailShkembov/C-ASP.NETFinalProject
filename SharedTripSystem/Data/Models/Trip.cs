@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using static SharedTripSystem.Data.DataConstants.Default;
 using static SharedTripSystem.Data.DataConstants.Trip;
@@ -25,6 +27,7 @@ namespace SharedTripSystem.Data.Models
         public Car Car { get; set; }
         public string  CarId { get; set; }
         public DateTime DepartureDate { get; set; }
+        public ICollection<User> Users = new List<User>();
 
     }
 }

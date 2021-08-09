@@ -44,7 +44,7 @@ namespace SharedTripSystem.Controllers
             };
             this.dbContext.Drivers.Add(driverToAdd);
             this.dbContext.SaveChanges();
-            return this.RedirectToAction("Add", "Cars");
+            return this.RedirectToAction("Create", "Cars");
         }
 
     }

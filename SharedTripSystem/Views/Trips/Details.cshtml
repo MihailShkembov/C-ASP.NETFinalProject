@@ -2,14 +2,17 @@
 @{
     ViewData["Title"] = "Details";
 }
-<h1>Car Detail</h1>
-<figure class="figure">
-    <img style="height:350px;width:600px;" src="@Model.CarImageUrl" class="rounded float-left" alt="Image can not be loaded">
-    <figcaption class="figure-caption text-right">@Model.Model-@Model.KilometersTravlled km<br>Type: @Model.Type-Plate Number :@Model.PlateNumber</figcaption>
-</figure>
+@if (Model.Model != null)
+{
+    <h1>Car Details</h1>
+    <figure class="figure">
+        <img style="height:350px;width:600px;" src="@Model.CarImageUrl" class="rounded float-left" alt="Image can not be loaded">
+        <figcaption class="figure-caption text-right">@Model.Model-@Model.KilometersTravlled km<br>Type: @Model.Type-Plate Number :@Model.PlateNumber</figcaption>
+    </figure>
+}
 <h3>Trip Description</h3>
 <div>
     <p>@Model.TripDescription</p>
 </div>
 
-<a asp-controller="Trips" asp-action="Details" asp-route-userid="@Model.UserId" asp-route-tripid="@Model." class="btn btn-primary">Details</a>
+<a asp-controller="Trips" asp-action="Join" asp-route-userid="@Model.UserId" asp-route-tripid="@Model.TripId" class="btn btn-primary">Join</a>
