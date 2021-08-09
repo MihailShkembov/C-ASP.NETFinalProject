@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -27,7 +28,6 @@ namespace SharedTripSystem.Data.Models
         public Car Car { get; set; }
         public string  CarId { get; set; }
         public DateTime DepartureDate { get; set; }
-        public ICollection<User> Users = new List<User>();
-
+        public ICollection<PassengerTrip> PassengersTrips { get; set; } = new List<PassengerTrip>();
     }
 }

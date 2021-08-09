@@ -10,7 +10,7 @@ namespace SharedTripSystem.Data
         public virtual DbSet<Trip> Trips { get; set; }
         public virtual DbSet<Driver> Drivers { get; set; }
         public virtual DbSet<Recommendation> Recommendations { get; set; }
-
+        public virtual DbSet<PassengerTrip> PassengersTrips { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -35,6 +35,20 @@ namespace SharedTripSystem.Data
                 .WithOne()
                 .HasForeignKey<Driver>(d => d.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<PassengerTrip>()
+              .HasKey(x => new { x.TripId, x.PassengerId });
+
+            builder.Entity<PassengerTrip>()
+                .HasOne(x => x.Passenger)
+                .WithMany(x => x.PassengersTrips)
+                .HasForeignKey(x => x.PassengerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<PassengerTrip>()
+               .HasOne(x => x.Trip)
+               .WithMany(x => x.PassengersTrips)
+               .HasForeignKey(x => x.TripId)
+               .OnDelete(DeleteBehavior.Restrict);
             base.OnModelCreating(builder);
 
         }
