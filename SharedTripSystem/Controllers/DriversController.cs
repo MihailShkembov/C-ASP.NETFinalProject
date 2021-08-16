@@ -26,7 +26,7 @@ namespace SharedTripSystem.Controllers
         [HttpPost]
         public IActionResult Create(BecomeDriverFormModel driver)
         {
-           var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var isUserDriver = drivers.IsDriver(userId);
             if (isUserDriver)
             {
@@ -36,14 +36,7 @@ namespace SharedTripSystem.Controllers
             {
                 return this.View(driver);
             }
-            var driverToAdd = new Driver
-            {
-                UserId = userId,
-                FullName = driver.FullName,
-                DriversLicense = driver.DriversLicense,
-            };
-            this.dbContext.Drivers.Add(driverToAdd);
-            this.dbContext.SaveChanges();
+            this.drivers.AddDriver(userId, driver.FullName, driver.DriversLicense);
             return this.RedirectToAction("Create", "Cars");
         }
 

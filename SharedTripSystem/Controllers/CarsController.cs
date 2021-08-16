@@ -6,6 +6,7 @@ using SharedTripSystem.Data.Models;
 using System.Security.Claims;
 using SharedTripSystem.Services.Drivers;
 using System.Linq;
+using SharedTripSystem.Services.Cars;
 
 namespace SharedTripSystem.Controllers
 {
@@ -13,11 +14,14 @@ namespace SharedTripSystem.Controllers
     {
         private readonly ApplicationDbContext dbContext;
         private readonly IDriverService drivers;
+        private readonly ICarService cars;
         public CarsController(ApplicationDbContext dbContext,
-            IDriverService drivers)
+            IDriverService drivers,
+            ICarService cars)
         {
             this.dbContext = dbContext;
             this.drivers = drivers;
+            this.cars = cars;
         }
         [Authorize]
         public IActionResult All()
@@ -27,24 +31,12 @@ namespace SharedTripSystem.Controllers
             {
                 return this.RedirectToAction("Create", "Drivers");
             }
-            var driver = this.dbContext.Drivers.FirstOrDefault(x => x.UserId == userId);
+            var driver = this.drivers.FindByUserId(userId);
             if (!this.dbContext.Cars.Any(x=>x.DriverId==driver.Id))
             {
                 return this.RedirectToAction("Create", "Cars");
             }
-            var cars = this.dbContext.Cars
-               .Where(x => x.DriverId==driver.Id)
-               .Select(x => new AllCarsLlistingViewModel
-               {
-                   Id = x.Id,
-                   Model = x.Model,
-                   PlateNumber = x.PlateNumber,
-                   KilometersTravelled = x.KilometersTravlled,
-                   Type = x.Type,
-                   CarImageUrl = x.CarImageUrl
-               }).OrderBy(x => x.KilometersTravelled)
-             .ToList();
-
+            var cars = this.cars.All(driver);
             return this.View(cars);
         }
 
@@ -63,26 +55,12 @@ namespace SharedTripSystem.Controllers
             {
                 return this.RedirectToAction("Create", "Drivers");
             }
-            var driver = this.dbContext.Drivers.FirstOrDefault(x => x.UserId == userId);
-            var carToAdd = new Car
-            {
-                Model = car.Model,
-                PlateNumber = car.PlateNumber,
-                KilometersTravlled = car.KilometersTravlled,
-                Type = car.Type,
-                DriverId = userId,
-                CarImageUrl=car.CarImageUrl
-            };
-            driver.Cars.Add(carToAdd);
-            this.dbContext.Cars.Add(carToAdd);
-            this.dbContext.SaveChanges();
+            this.cars.Create(userId,car);
             return RedirectToAction("All", "Cars");
         }
         public IActionResult Delete(string carId)
         {
-            var carToDelete= this.dbContext.Cars.FirstOrDefault(x => x.Id == carId);
-            this.dbContext.Remove(carToDelete);
-            this.dbContext.SaveChanges();
+            this.cars.Delete(carId);
             return RedirectToAction("Index", "Home");
         }
     }

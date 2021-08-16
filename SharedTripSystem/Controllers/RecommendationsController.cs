@@ -5,29 +5,26 @@ using SharedTripSystem.Data;
 using SharedTripSystem.Data.Models;
 using SharedTripSystem.Models.Recommendations;
 using System.Linq;
+using SharedTripSystem.Services.Recommendations;
 
 namespace SharedTripSystem.Controllers
 {
     public class RecommendationsController:Controller
     {
         private readonly ApplicationDbContext dbContext;
-        public RecommendationsController(ApplicationDbContext dbContext)
+        private readonly IRecommendationService recommendations;
+        public RecommendationsController(ApplicationDbContext dbContext,
+            IRecommendationService recommendations)
         {
             this.dbContext = dbContext;
+            this.recommendations = recommendations;
         }
         [Authorize]
         public IActionResult All()
         {
-            var recommendations = this.dbContext.Recommendations
-                .ToList()
-                .Select(x => new AllRecommendationsListingModel
-                {
-                    Location = x.Location,
-                    Description = x.Descripton
-                })
-                .ToList();
+            var viewModel = this.recommendations.All();
 
-            return this.View(recommendations);
+            return this.View(viewModel);
         }
         [Authorize]
         public IActionResult Create() => this.View();
@@ -40,14 +37,7 @@ namespace SharedTripSystem.Controllers
                 return this.View(recommendation);
             }
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var recommendationToAdd = new Recommendation
-            {
-                UserId = userId,
-                Location = recommendation.Location,
-                Descripton = recommendation.Descripton
-            };
-            this.dbContext.Recommendations.Add(recommendationToAdd);
-            this.dbContext.SaveChanges();
+            this.recommendations.Create(userId, recommendation);
             return RedirectToAction("All", "Trips");
         }
     }
