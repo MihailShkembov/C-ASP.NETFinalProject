@@ -34,6 +34,6 @@ jobs:
       with:
         app-name: SharedTripSystem
         slot-name: Production
-        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6BBC0AE64DFD46598121C0DC22D979BE }}
+        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0D59FA2001164E2DA1D2D012FDA781B4 }}
         package: ${{env.DOTNET_ROOT}}/myapp
 
