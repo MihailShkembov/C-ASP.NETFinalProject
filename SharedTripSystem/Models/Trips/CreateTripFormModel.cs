@@ -26,6 +26,7 @@ namespace SharedTripSystem.Models.Trips
      
         [Display(Name = "Date and Time of departure")]
         public DateTime DepartureDate { get; init; }
+        [Required]
         [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; }
         public string UserId { get; set; }

@@ -58,6 +58,7 @@ namespace SharedTripSystem.Controllers
             this.cars.Create(userId,car);
             return RedirectToAction("All", "Cars");
         }
+        [Authorize]
         public IActionResult Delete(string carId)
         {
             this.cars.Delete(carId);

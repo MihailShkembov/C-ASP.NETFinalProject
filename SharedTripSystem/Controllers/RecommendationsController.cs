@@ -16,7 +16,7 @@ namespace SharedTripSystem.Controllers
         public RecommendationsController(ApplicationDbContext dbContext,
             IRecommendationService recommendations)
         {
-            this.dbContext = dbContext;
+            this.dbContext = dbContext; 
             this.recommendations = recommendations;
         }
         [Authorize]

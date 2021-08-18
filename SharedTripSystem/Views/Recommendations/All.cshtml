@@ -1,0 +1,6 @@
+﻿@model List<RecommendationsListingModel>
+@foreach (var recommendation in Model)
+{
+    <h4>@recommendation.Location</h4>
+    <article>@recommendation.Description</article>
+}
